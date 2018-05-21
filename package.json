@@ -8,5 +8,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@panstav/is-heroku": "0.0.5",
+    "body-parser": "1.18.3",
+    "compression": "1.7.2",
+    "express": "4.16.3",
+    "express-sslify": "1.2.0",
+    "morgan": "1.9.0"
+  }
 }

@@ -31,24 +31,24 @@ function initiateServer() {
 		server.enable('trust proxy');
 	}
 
-// compress everything
+	// compress everything
 	server.use(compression());
 
-// serve app
+	// serve app
 	server.get('/', (req, res) => {
 		res.sendFile('index.html', { root: '.', maxAge: 0 })
 	});
 
-// json => req.body
+	// json => req.body
 	server.use(bodyParser.json());
 
-// receive json data of client-side errors and log them
+	// receive json data of client-side errors and log them
 	server.post('/report', (req, res) => {
 		console.error('Report', req.body);
 		res.status(200).end();
 	});
 
-// handle off-shoots
+	// handle off-shoots
 	server.use(errorHandler, notFound);
 
 	return server;

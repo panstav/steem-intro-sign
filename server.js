@@ -17,14 +17,10 @@ function initiateServer() {
 
 	const server = express();
 
-	if (isProduction) {
-		// enforce https
-		server.use(enforce.HTTPS({ trustProtoHeader: true }));
-
-	} else {
-		// log routing
-		server.use(morgan('tiny'));
-	}
+	// enforce https on production
+	if (isProduction) { server.use(enforce.HTTPS({ trustProtoHeader: true }))
+	// log routing on local
+	} else server.use(morgan('tiny'));
 
 	if (isHeroku) {
 		// fix heroku routing forwarding

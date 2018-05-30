@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/mocha/bin/mocha"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +16,11 @@
     "express": "4.16.3",
     "express-sslify": "1.2.0",
     "morgan": "1.9.0"
+  },
+  "devDependencies": {
+    "html-validator": "3.0.3",
+    "mocha": "5.2.0",
+    "sinon": "5.0.10",
+    "supertest": "3.1.0"
   }
 }

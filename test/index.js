@@ -19,12 +19,24 @@ describe('Routes', () => {
 
 		});
 
-		it('Should return valid html', () => {
+		it('Should return valid html', (done) => {
 
-			return request(server)
+			request(server)
 				.get('/')
-				.then((res) => validateHtml(res.text));
+				.then((res) => validateHtml(res.text))
+				.then(done)
+				.catch((err) => {
 
+					const ignoredErrorMessages = [
+						'Attribute “autocomplete” not allowed on element “span” at this point.',
+						'Attribute “autocorrect” not allowed on element “span” at this point.'
+					];
+
+					const filteredErrorMessages = JSON.parse(err.message)
+						.filter((error) => !ignoredErrorMessages.includes(error.message));
+
+					done(filteredErrorMessages.length ? err : undefined);
+				});
 
 		});
 

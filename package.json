@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha"
+    "test": "node_modules/mocha/bin/mocha",
+    "precommit": "npm test",
+    "prepush": "npm test"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +21,7 @@
   },
   "devDependencies": {
     "html-validator": "3.0.3",
+    "husky": "0.14.3",
     "mocha": "5.2.0",
     "sinon": "5.0.10",
     "supertest": "3.1.0"

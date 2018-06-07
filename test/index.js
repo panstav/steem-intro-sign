@@ -35,7 +35,7 @@ describe('Routes', () => {
 					const filteredErrorMessages = JSON.parse(err.message)
 						.filter((error) => !ignoredErrorMessages.includes(error.message));
 
-					done(filteredErrorMessages.length ? err : undefined);
+					done(filteredErrorMessages.length ? new Error(JSON.stringify(filteredErrorMessages)) : undefined);
 				});
 
 		});

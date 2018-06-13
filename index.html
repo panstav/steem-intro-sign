@@ -163,30 +163,32 @@
         }
 
         function showCurrentDate() {
+
 	        document.getElementById('todays-date').innerText = getFormatedDate(new Date());
-        }
 
-        function getFormatedDate(date) {
+	        function getFormatedDate(date) {
 
-        	var formatted = '';
-        	var now = date;
+		        var formatted = '';
+		        var now = date;
 
-        	var dayOfMonth = String(now.getDate());
-        	formatted += padded(dayOfMonth, 2, '0') + '/';
+		        var dayOfMonth = String(now.getDate());
+		        formatted += padded(dayOfMonth, 2, '0') + '/';
 
-        	var month = now.getMonth() + 1;
-            formatted += padded(month, 2, '0') + '/';
+		        var month = now.getMonth() + 1;
+		        formatted += padded(month, 2, '0') + '/';
 
-            return formatted + now.getFullYear();
+		        return formatted + now.getFullYear();
 
-	        function padded(string, length, paddingStr) {
-		        if (string.length === length) return string;
+		        function padded(string, length, paddingStr) {
+			        if (string.length === length) return string;
 
-		        var padding = '';
-		        for (let i = 0; i < length-1; i++) {
-			        padding += paddingStr;
+			        var padding = '';
+			        for (let i = 0; i < length-1; i++) {
+				        padding += paddingStr;
+			        }
+			        return padding + string;
 		        }
-		        return padding + string;
+
 	        }
 
         }

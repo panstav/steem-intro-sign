@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "node_modules/mocha/bin/mocha",
     "precommit": "npm test",
     "prepush": "npm test"
@@ -13,7 +14,7 @@
     "npm": "5.6.0"
   },
   "keywords": [],
-  "author": "",
+  "author": "Stav Geffen <stavgeffen@gmail.com> (https://stav.io)",
   "license": "ISC",
   "dependencies": {
     "@panstav/is-heroku": "0.0.5",

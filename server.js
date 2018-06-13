@@ -32,7 +32,7 @@ function initiateServer() {
 
 	// serve app
 	server.get('/', (req, res) => {
-		res.sendFile('index.html', { root: '.', maxAge: 0 })
+		res.sendFile('index.html', { root: '.', maxAge: 0 });
 	});
 
 	// json => req.body

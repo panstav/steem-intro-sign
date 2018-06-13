@@ -125,6 +125,7 @@
 
     <script>
 
+	    setupErrorReporting();
         showCurrentDate();
 
         setFluidResizing('#username', { min: 20, max: 150, ratio: 1.5 });
@@ -192,6 +193,25 @@
 	        }
 
         }
+
+        function setupErrorReporting() {
+            window.addEventListener('error', function(event) {
+
+            var stringifyiedError = JSON.stringify({
+                type: event.type,
+                colNumber: event.colno,
+                lineNumber: event.lineno,
+                message: event.message,
+                stack: event.error.stack
+            });
+
+            var request = new XMLHttpRequest();
+            request.open('POST', '/report', true);
+            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            request.send(stringifyiedError);
+
+        });
+    }
 
     </script>
 

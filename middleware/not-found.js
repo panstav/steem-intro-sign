@@ -2,7 +2,7 @@ module.exports = notFound;
 
 function notFound(req, res){
 
-	if (req.accepts('html')){
+	if (req.accepts('html') && !req.url.includes('favicon')) {
 		return res.redirect(303, '/');
 	}
 

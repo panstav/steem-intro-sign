@@ -56,14 +56,11 @@ describe('Routes', () => {
 
 		});
 
-		it('Should redirect unknown routes back to /', () => {
+		it('Should return the obvious status for non-existent routes', () => {
 
 			return request(server)
 				.get('/a-route-that-surely-does-not-exist')
-				.expect(303)
-				.then((res) => {
-					assert(res.header.location === '/');
-				});
+				.expect(404);
 
 		});
 

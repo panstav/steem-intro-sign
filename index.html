@@ -134,12 +134,13 @@
 
     <script>
 
-	    setupErrorReporting();
-        showCurrentDate();
-        focusOnUsernameInput();
+        setupErrorReporting();
+        setupDate();
 
         setFluidResizing('#username', { min: 20, max: 150, ratio: 1.5 });
         setFluidResizing('#todays-date', { min: 20, max: 80, ratio: 0.8 });
+
+        focusOnUsernameInput();
 
         function setFluidResizing(containerSelector, options) {
 
@@ -173,9 +174,17 @@
 
         }
 
-        function showCurrentDate() {
+        function setupDate() {
 
-	        document.getElementById('todays-date').innerText = getFormatedDate(new Date());
+        	var elem = document.getElementById('todays-date');
+        	var americanFormat = false;
+
+        	setDate(getFormatedDate(new Date()));
+	        setupFormatSwitching();
+
+	        function setDate() {
+		        elem.innerText = getFormatedDate(new Date());
+	        }
 
 	        function getFormatedDate(date) {
 
@@ -183,10 +192,13 @@
 		        var now = date;
 
 		        var dayOfMonth = String(now.getDate());
-		        formatted += padded(dayOfMonth, 2, '0') + '/';
-
 		        var month = now.getMonth() + 1;
-		        formatted += padded(month, 2, '0') + '/';
+
+		        if (americanFormat) {
+			        formatted += padded(month, 2, '0') + '/' + padded(dayOfMonth, 2, '0') + '/';
+		        } else {
+			        formatted += padded(dayOfMonth, 2, '0') + '/' + padded(month, 2, '0') + '/';
+		        }
 
 		        return formatted + now.getFullYear();
 
@@ -200,6 +212,13 @@
 			        return padding + string;
 		        }
 
+	        }
+
+	        function setupFormatSwitching() {
+	        	elem.addEventListener('click', function() {
+	        		americanFormat = !americanFormat;
+                    setDate();
+                });
 	        }
 
         }

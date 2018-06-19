@@ -136,6 +136,7 @@
 
 	    setupErrorReporting();
         showCurrentDate();
+        focusOnUsernameInput();
 
         setFluidResizing('#username', { min: 20, max: 150, ratio: 1.5 });
         setFluidResizing('#todays-date', { min: 20, max: 80, ratio: 0.8 });
@@ -221,6 +222,70 @@
 
         });
     }
+
+        function focusOnUsernameInput() {
+
+	        setEndOfContenteditable(document.querySelector('#username [contenteditable]'));
+
+	        function setEndOfContenteditable(contentEditableElement) {
+
+		        var voidNodeTags = ['AREA', 'BASE', 'BR', 'COL', 'EMBED', 'HR', 'IMG', 'INPUT', 'KEYGEN', 'LINK', 'MENUITEM', 'META', 'PARAM', 'SOURCE', 'TRACK', 'WBR', 'BASEFONT', 'BGSOUND', 'FRAME', 'ISINDEX'];
+
+		        while(getLastChildElement(contentEditableElement) &&
+		        canContainText(getLastChildElement(contentEditableElement))) {
+			        contentEditableElement = getLastChildElement(contentEditableElement);
+		        }
+
+		        var range,selection;
+
+		        // Create a range (a range is a like the selection but invisible)
+		        range = document.createRange();
+
+		        // Select the entire contents of the element with the range
+		        range.selectNodeContents(contentEditableElement);
+
+		        //collapse the range to the end point. false means collapse to end rather than the start
+		        range.collapse(false);
+
+		        //get the selection object (allows you to change selection)
+		        selection = window.getSelection();
+
+		        //remove any selections already made
+		        selection.removeAllRanges();
+
+		        //make the range you have just created the visible selection
+		        selection.addRange(range);
+
+		        function getLastChildElement(el){
+			        var lc = el.lastChild;
+			        while(lc && lc.nodeType != 1) {
+				        if(lc.previousSibling)
+					        lc = lc.previousSibling;
+				        else
+					        break;
+			        }
+			        return lc;
+		        }
+
+		        function canContainText(node) {
+
+			        if(node.nodeType == 1) { //is an element node
+				        return !contains(voidNodeTags, node.nodeName);
+			        } else { //is not an element node
+				        return false;
+			        }
+
+			        function contains(hay, needle) {
+				        return !!hay.filter(function(item) {
+					        return item === needle;
+				        });
+			        }
+
+		        };
+
+	        }
+
+        }
 
     </script>
 

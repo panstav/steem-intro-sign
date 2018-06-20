@@ -133,6 +133,8 @@
 
     <script>
 
+        var contentEditableElem = document.querySelector('#username [contenteditable]');
+
         setupErrorReporting();
         setupDate();
 
@@ -140,6 +142,9 @@
         setFluidResizing('#todays-date', { min: 20, max: 80, ratio: 0.8 });
 
         focusOnUsernameInput();
+
+        setupTrackingUsernameInput();
+        setupTrackingOutboundLinks();
 
         function setFluidResizing(containerSelector, options) {
 
@@ -217,6 +222,7 @@
 	        	elem.addEventListener('click', function() {
 	        		americanFormat = !americanFormat;
                     setDate();
+                    trackEvent('interaction', 'format-switch', americanFormat ? 'to american' : 'to normal');
                 });
 	        }
 
@@ -243,7 +249,7 @@
 
         function focusOnUsernameInput() {
 
-	        setEndOfContenteditable(document.querySelector('#username [contenteditable]'));
+	        setEndOfContenteditable(contentEditableElem);
 
 	        function setEndOfContenteditable(contentEditableElement) {
 
@@ -303,6 +309,28 @@
 
 	        }
 
+        }
+
+        function setupTrackingUsernameInput() {
+	        contentEditableElem.addEventListener('blur', function() {
+	        	if (contentEditableElem.textContent !== 'example') trackEvent('interaction', 'username-input');
+	        });
+        }
+
+        function setupTrackingOutboundLinks() {
+	        Array.prototype.slice.call(document.querySelectorAll('footer a')).forEach(function(link) {
+                link.addEventListener('click', function() {
+                	trackEvent('outbound', 'navigation', this.href);
+                });
+	        });
+        }
+
+        function trackEvent(category, action, label, value) {
+	        var eventObj = { event_category: category };
+	        if (label) eventObj.event_label = label;
+	        if (value) eventObj.value = value;
+
+	        gtag('event', action, eventObj);
         }
 
     </script>
